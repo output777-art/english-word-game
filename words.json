@@ -1,0 +1,30 @@
+[
+    {
+        "word": "Apple",
+        "image": "images/apple.png"
+    },
+    {
+        "word": "Banana",
+        "image": "images/banana.png"
+    },
+    {
+        "word": "Cat",
+        "image": "images/cat.png"
+    },
+    {
+        "word": "Dog",
+        "image": "images/dog.png"
+    },
+    {
+        "word": "Flamingo",
+        "image": "images/flamingo.png"
+    },
+    {
+        "word": "Fox",
+        "image": "images/fox.png"
+    },
+    {
+        "word": "Parrot",
+        "image": "images/parrot.png"
+    }
+]
