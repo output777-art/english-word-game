@@ -1,6 +1,7 @@
 import streamlit as st
 import json
-import pyttsx3
+from gtts import gTTS
+from io import BytesIO
 import os
 
 #  Reading a json file
@@ -32,28 +33,24 @@ with st.expander("🎛️ Voice Settings", expanded=True):
 
 # ===== 🔊 Read aloud =====
 if st.button("🔊 Read Aloud"):
-    engine = pyttsx3.init()
-    engine.setProperty("rate", st.session_state.rate)  # set speech rate
-
-    # Get all available sounds
-    voices = engine.getProperty("voices")
+    # gTTS does not support voice gender directly, so we ignore voice_type for now
+    slow = False
+    # Map speed slider to slow parameter roughly: slower speed if rate < 120
+    if st.session_state.rate < 120:
+        slow = True
     
-    # Set the sound according to choice
-    selected_voice = None
-    for voice in voices:
-        if st.session_state.voice_type.lower() in voice.name.lower():
-            selected_voice = voice
-            break
-    if selected_voice:
-        engine.setProperty("voice", selected_voice.id)
-
-    engine.say(current["word"])
-    engine.runAndWait()
+    tts = gTTS(text=current["word"], lang='en', slow=slow)
+    mp3_fp = BytesIO()
+    tts.write_to_fp(mp3_fp)
+    mp3_fp.seek(0)
+    st.audio(mp3_fp.read(), format="audio/mp3")
 
 # ===== 👉 Next button =====
 if st.button("➡️ Next"):
     st.session_state.index = (st.session_state.index + 1) % len(word_list)
     st.rerun()  # 👈 Refresh page
+
+    
 
 
 
