@@ -4,16 +4,44 @@
         "image": "images/apple.png"
     },
     {
+        "word": "Avocado",
+        "image": "images/avocado.png"
+    },
+    {
         "word": "Banana",
         "image": "images/banana.png"
+    },
+    {
+        "word": "Broccoli",
+        "image": "images/broccoli.png"
+    },
+    {
+        "word": "Burger",
+        "image": "images/burger.png"
+    },
+    {
+        "word": "Carrot",
+        "image": "images/carrot.png"
     },
     {
         "word": "Cat",
         "image": "images/cat.png"
     },
     {
+        "word": "Cherry",
+        "image": "images/cherry.png"
+    },
+    {
+        "word": "Chili",
+        "image": "images/chili.png"
+    },
+    {
         "word": "Dog",
         "image": "images/dog.png"
+    },
+    {
+        "word": "Eggplant",
+        "image": "images/eggplant.png"
     },
     {
         "word": "Flamingo",
@@ -24,7 +52,35 @@
         "image": "images/fox.png"
     },
     {
+        "word": "Onion",
+        "image": "images/onion.png"
+    },
+    {
         "word": "Parrot",
         "image": "images/parrot.png"
+    },
+    {
+        "word": "Pineapple",
+        "image": "images/pineapple.png"
+    },
+    {
+        "word": "Pizza",
+        "image": "images/pizza.png"
+    },
+    {
+        "word": "Potato",
+        "image": "images/potato.png"
+    },
+    {
+        "word": "Salad",
+        "image": "images/salad.png"
+    },
+    {
+        "word": "Sandwich",
+        "image": "images/sandwich.png"
+    },
+    {
+        "word": "Strawberry",
+        "image": "images/strawberry.png"
     }
 ]
