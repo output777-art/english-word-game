@@ -1,86 +1,128 @@
 [
-    {
-        "word": "Apple",
-        "image": "images/apple.png"
-    },
-    {
-        "word": "Avocado",
-        "image": "images/avocado.png"
-    },
-    {
-        "word": "Banana",
-        "image": "images/banana.png"
-    },
-    {
-        "word": "Broccoli",
-        "image": "images/broccoli.png"
-    },
-    {
-        "word": "Burger",
-        "image": "images/burger.png"
-    },
-    {
-        "word": "Carrot",
-        "image": "images/carrot.png"
-    },
-    {
-        "word": "Cat",
-        "image": "images/cat.png"
-    },
-    {
-        "word": "Cherry",
-        "image": "images/cherry.png"
-    },
-    {
-        "word": "Chili",
-        "image": "images/chili.png"
-    },
-    {
-        "word": "Dog",
-        "image": "images/dog.png"
-    },
-    {
-        "word": "Eggplant",
-        "image": "images/eggplant.png"
-    },
-    {
-        "word": "Flamingo",
-        "image": "images/flamingo.png"
-    },
-    {
-        "word": "Fox",
-        "image": "images/fox.png"
-    },
-    {
-        "word": "Onion",
-        "image": "images/onion.png"
-    },
-    {
-        "word": "Parrot",
-        "image": "images/parrot.png"
-    },
-    {
-        "word": "Pineapple",
-        "image": "images/pineapple.png"
-    },
-    {
-        "word": "Pizza",
-        "image": "images/pizza.png"
-    },
-    {
-        "word": "Potato",
-        "image": "images/potato.png"
-    },
-    {
-        "word": "Salad",
-        "image": "images/salad.png"
-    },
-    {
-        "word": "Sandwich",
-        "image": "images/sandwich.png"
-    },
-    {
-        "word": "Strawberry",
-        "image": "images/strawberry.png"
-    }
+  {
+    "word": "Apple",
+    "image": "images/apple.png",
+    "example": "I like to eat a red apple every morning.",
+    "translation": "苹果"
+  },
+  {
+    "word": "Avocado",
+    "image": "images/avocado.png",
+    "example": "Avocados are full of healthy fats.",
+    "translation": "鳄梨 / 牛油果"
+  },
+  {
+    "word": "Banana",
+    "image": "images/banana.png",
+    "example": "The monkey is eating a banana.",
+    "translation": "香蕉"
+  },
+  {
+    "word": "Broccoli",
+    "image": "images/broccoli.png",
+    "example": "Broccoli is a very healthy vegetable.",
+    "translation": "西兰花"
+  },
+  {
+    "word": "Burger",
+    "image": "images/burger.png",
+    "example": "He ordered a big burger with fries.",
+    "translation": "汉堡"
+  },
+  {
+    "word": "Carrot",
+    "image": "images/carrot.png",
+    "example": "Rabbits love to eat carrots.",
+    "translation": "胡萝卜"
+  },
+  {
+    "word": "Cat",
+    "image": "images/cat.png",
+    "example": "The cat is sleeping on the sofa.",
+    "translation": "猫"
+  },
+  {
+    "word": "Cherry",
+    "image": "images/cherry.png",
+    "example": "She put a cherry on top of the cake.",
+    "translation": "樱桃"
+  },
+  {
+    "word": "Chili",
+    "image": "images/chili.png",
+    "example": "This chili is very spicy!",
+    "translation": "辣椒"
+  },
+  {
+    "word": "Dog",
+    "image": "images/dog.png",
+    "example": "The dog is barking at the stranger.",
+    "translation": "狗"
+  },
+  {
+    "word": "Eggplant",
+    "image": "images/eggplant.png",
+    "example": "She made a dish with eggplant and cheese.",
+    "translation": "茄子"
+  },
+  {
+    "word": "Flamingo",
+    "image": "images/flamingo.png",
+    "example": "The flamingo is a large pink bird found in warm regions.",
+    "translation": "火烈鸟"
+  },
+  {
+    "word": "Fox",
+    "image": "images/fox.png",
+    "example": "The clever fox ran into the forest.",
+    "translation": "狐狸"
+  },
+  {
+    "word": "Onion",
+    "image": "images/onion.png",
+    "example": "Chopping onions makes my eyes water.",
+    "translation": "洋葱"
+  },
+  {
+    "word": "Parrot",
+    "image": "images/parrot.png",
+    "example": "The parrot can repeat human words.",
+    "translation": "鹦鹉"
+  },
+  {
+    "word": "Pineapple",
+    "image": "images/pineapple.png",
+    "example": "Pineapples are sweet and juicy.",
+    "translation": "菠萝"
+  },
+  {
+    "word": "Pizza",
+    "image": "images/pizza.png",
+    "example": "We had pizza for dinner last night.",
+    "translation": "披萨"
+  },
+  {
+    "word": "Potato",
+    "image": "images/potato.png",
+    "example": "Potatoes can be boiled, baked, or fried.",
+    "translation": "土豆"
+  },
+  {
+    "word": "Salad",
+    "image": "images/salad.png",
+    "example": "She made a fresh green salad.",
+    "translation": "沙拉"
+  },
+  {
+    "word": "Sandwich",
+    "image": "images/sandwich.png",
+    "example": "He packed a sandwich for lunch.",
+    "translation": "三明治"
+  },
+  {
+    "word": "Strawberry",
+    "image": "images/strawberry.png",
+    "example": "Strawberries are my favorite fruit.",
+    "translation": "草莓"
+  }
 ]
