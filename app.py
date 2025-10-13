@@ -6,7 +6,7 @@ import base64
 import random
 import time
 from datetime import date
-import speech_recognition as sr
+import os
 
 # ---------------- Load word list ----------------
 with open("words.json", "r", encoding="utf-8") as f:
@@ -77,17 +77,17 @@ def play_tts(text, slow=False):
 if st.session_state.mode in ["learn", "quiz"]:
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown(f"### Round: {st.session_state.round}/{TOTAL_ROUNDS}")
+        st.markdown(f"### 🔁 Round: {st.session_state.round}/{TOTAL_ROUNDS}")
     with col2:
-        st.markdown(f"### Score: `{st.session_state.score}`")
+        st.markdown(f"### 🧠 Score: `{st.session_state.score}`")
     with col3:
-        st.markdown(f"### High Score: `{st.session_state.high_score}`")
+        st.markdown(f"### 🏆 High Score: `{st.session_state.high_score}`")
 
-    st.markdown(f"### Daily Goal: {st.session_state.daily_learned}/{DAILY_GOAL} words learned today")
+    st.markdown(f"### 🎯 Daily Goal: {st.session_state.daily_learned}/{DAILY_GOAL} words learned today")
     st.progress(min(st.session_state.daily_learned / DAILY_GOAL, 1.0))
 
     if st.session_state.daily_learned >= DAILY_GOAL and not st.session_state.daily_goal_celebrated:
-        st.success("Daily goal completed! Great job!")
+        st.success("🎉 Daily goal completed! Great job!")
         st.balloons()
         st.session_state.daily_goal_celebrated = True
 
@@ -107,37 +107,34 @@ def check_achievements():
 
 # ---------------- Pronunciation Practice ----------------
 def pronunciation_practice(word):
-    recognizer = sr.Recognizer()
     try:
+        import speech_recognition as sr
+        recognizer = sr.Recognizer()
         with sr.Microphone() as source:
             recognizer.adjust_for_ambient_noise(source, duration=0.6)
-            st.info("Listening... Please speak now.")
+            st.info("🎤 Listening... Please speak now.")
             audio = recognizer.listen(source, timeout=10, phrase_time_limit=10)
-    except sr.WaitTimeoutError:
-        st.warning("No speech detected within 10 seconds. Please try again.")
-        return
-    except OSError as e:
-        st.error(f"Microphone error: {e}")
+    except (ImportError, OSError, Exception):
+        st.warning("⚠️ Speech recognition is unavailable. This feature only works locally with a microphone.")
         return
 
     try:
         user_speech = recognizer.recognize_google(audio)
         st.write(f"You said: `{user_speech}`")
         if user_speech.strip().lower() == word.strip().lower():
-            st.success("Good job — pronunciation matched!")
+            st.success("✅ Good job — pronunciation matched!")
         else:
-            st.error(f"Pronunciation did not match. Detected: '{user_speech}'. Try again.")
+            st.error(f"❌ Detected: '{user_speech}'. Try again.")
     except sr.UnknownValueError:
-        st.error("Sorry, could not understand the audio. Try again.")
+        st.error("Sorry, could not understand the audio.")
     except sr.RequestError:
-        st.error("Speech recognition service unavailable. Check your connection.")
+        st.error("Speech recognition service unavailable.")
 
 # ---------------- Review Mode ----------------
 def review_mode():
-    st.title("Review Mode")
-
+    st.title("🔁 Review Mode")
     if not st.session_state.review_list:
-        st.warning("No learned words available for review. Learn some words first.")
+        st.warning("No learned words available for review.")
         if st.button("Back to Learn"):
             st.session_state.mode = "learn"
             st.rerun()
@@ -148,12 +145,12 @@ def review_mode():
         with st.expander(f"{item['word'].capitalize()}"):
             st.image(item["image"], width=150)
             if "example" in item:
-                st.markdown(f"Example: *{item['example']}*")
-                if st.button(f"Read example: {item['word']}", key=f"rev_example_{item['word']}"):
+                st.markdown(f"📖 *{item['example']}*")
+                if st.button(f"🔊 Read example: {item['word']}", key=f"rev_example_{item['word']}"):
                     play_tts(item["example"])
             if item.get("translation"):
-                if st.checkbox(f"Show translation for {item['word']}", key=f"trans_rev_{item['word']}"):
-                    st.markdown(f"Translation: {item['translation']}")
+                if st.checkbox(f"Show translation", key=f"trans_rev_{item['word']}"):
+                    st.markdown(f"📘 Translation: {item['translation']}")
             if st.button(f"🔊 Read word: {item['word']}", key=f"rev_read_{item['word']}"):
                 play_tts(item["word"])
 
@@ -161,11 +158,9 @@ def review_mode():
         st.session_state.mode = "learn"
         st.rerun()
 
-# ---------------- Goal Completed Mode ----------------
+# ---------------- Goal Completed ----------------
 if st.session_state.mode == "goal_completed":
     st.success("🎉 You've completed your daily goal!")
-
-    st.markdown("Would you like to:")
     col1, col2, col3 = st.columns(3)
     with col1:
         if st.button("📚 Continue Learning"):
@@ -183,8 +178,8 @@ if st.session_state.mode == "goal_completed":
 # ---------------- Learn Mode ----------------
 if st.session_state.mode == "learn":
     if st.session_state.index >= len(word_list):
-        st.success("You have learned all available words!")
-        st.markdown(f"Final Score: `{st.session_state.score}`")
+        st.success("🎓 You have learned all available words!")
+        st.markdown(f"🏁 Final Score: `{st.session_state.score}`")
         if st.button("Restart Game"):
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
@@ -192,30 +187,29 @@ if st.session_state.mode == "learn":
         st.stop()
 
     current = word_list[st.session_state.index]
-    st.title("Learn New Word")
-
+    st.title("📘 Learn New Word")
     st.image(current["image"], width=300)
-    st.markdown(f"## Word: **{current['word'].capitalize()}**")
+    st.markdown(f"## ✏️ Word: **{current['word'].capitalize()}**")
 
     if "example" in current:
-        st.markdown(f"Example: *{current['example']}*")
+        st.markdown(f"📖 *{current['example']}*")
 
     st.session_state.show_translation = st.checkbox("Show translation", value=st.session_state.show_translation)
     if st.session_state.show_translation and current.get("translation"):
-        st.markdown(f"Translation: {current['translation']}")
+        st.markdown(f"📘 Translation: {current['translation']}")
 
     colA, colB, colC, colD = st.columns(4)
     with colA:
-        if st.button("Read word", key="tts_word"):
+        if st.button("🔊 Read word", key="tts_word"):
             play_tts(current["word"])
     with colB:
-        if "example" in current and st.button("Read example", key="tts_example"):
+        if "example" in current and st.button("📖 Read example", key="tts_example"):
             play_tts(current["example"])
     with colC:
-        if st.button("Practice pronunciation", key="pronounce"):
+        if st.button("🎤 Practice pronunciation", key="pronounce"):
             pronunciation_practice(current["word"])
     with colD:
-        if st.button("Next", key="next_word"):
+        if st.button("➡️ Next", key="next_word"):
             if current["word"] not in st.session_state.learned_words:
                 st.session_state.learned_words.append(current["word"])
                 st.session_state.total_learned += 1
@@ -241,17 +235,17 @@ if st.session_state.mode == "learn":
             st.rerun()
 
     if st.session_state.review_list:
-        if st.button("Go to Review Mode"):
+        if st.button("🔁 Go to Review Mode"):
             st.session_state.mode = "review"
             st.rerun()
 
 # ---------------- Quiz Mode ----------------
 elif st.session_state.mode == "quiz":
-    st.title("Quiz Time")
+    st.title("🧠 Quiz Time")
 
     if st.session_state.round > TOTAL_ROUNDS:
-        st.success("You finished all rounds!")
-        st.markdown(f"Final Score: `{st.session_state.score}`")
+        st.success("✅ You finished all rounds!")
+        st.markdown(f"🏁 Final Score: `{st.session_state.score}`")
         if st.button("Restart Game"):
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
@@ -259,10 +253,6 @@ elif st.session_state.mode == "quiz":
         st.stop()
 
     if st.session_state.quiz_correct_word is None:
-        if not st.session_state.learned_words:
-            st.warning("No learned words to quiz. Returning to learn mode.")
-            st.session_state.mode = "learn"
-            st.rerun()
         correct = random.choice(st.session_state.learned_words)
         st.session_state.quiz_correct_word = correct
         all_words = [w["word"] for w in word_list if w["word"] != correct]
@@ -273,7 +263,7 @@ elif st.session_state.mode == "quiz":
 
     correct_item = next(w for w in word_list if w["word"] == st.session_state.quiz_correct_word)
     st.image(correct_item["image"], width=300)
-    st.markdown("Choose the correct word for this image:")
+    st.markdown("👉 Choose the correct word for this image:")
 
     if not st.session_state.quiz_submitted:
         cols = st.columns(len(st.session_state.quiz_options))
@@ -296,7 +286,7 @@ elif st.session_state.mode == "quiz":
                     st.rerun()
     else:
         if st.session_state.quiz_result == "correct":
-            st.success("Correct!")
+            st.success("✅ Correct!")
             play_tts(st.session_state.quiz_correct_word)
             time.sleep(1.2)
             st.session_state.learned_words = []
@@ -309,12 +299,12 @@ elif st.session_state.mode == "quiz":
             st.session_state.selected_option = None
             st.rerun()
         elif st.session_state.quiz_result == "wrong":
-            st.error(f"Wrong. Correct answer: **{st.session_state.quiz_correct_word.capitalize()}**")
+            st.error(f"❌ Wrong. Correct answer: **{st.session_state.quiz_correct_word.capitalize()}**")
             play_tts(f"The correct word is {st.session_state.quiz_correct_word}")
-            if st.button("Go to Review Mode"):
+            if st.button("🔁 Go to Review Mode"):
                 st.session_state.mode = "review"
                 st.rerun()
-            if st.button("Continue to next (review later)"):
+            if st.button("➡️ Continue to next"):
                 st.session_state.learned_words = []
                 st.session_state.round += 1
                 st.session_state.mode = "learn"
@@ -325,9 +315,10 @@ elif st.session_state.mode == "quiz":
                 st.session_state.selected_option = None
                 st.rerun()
 
-# ---------------- Review Handler ----------------
+# ---------------- Review Fallback ----------------
 elif st.session_state.mode == "review":
     review_mode()
+
 
 
 
