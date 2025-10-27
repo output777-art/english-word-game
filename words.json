@@ -1,128 +1,248 @@
 [
-  {
-    "word": "Apple",
-    "image": "images/apple.png",
-    "example": "I like to eat a red apple every morning.",
-    "translation": "苹果"
-  },
-  {
-    "word": "Avocado",
-    "image": "images/avocado.png",
-    "example": "Avocados are full of healthy fats.",
-    "translation": "鳄梨 / 牛油果"
-  },
-  {
-    "word": "Banana",
-    "image": "images/banana.png",
-    "example": "The monkey is eating a banana.",
-    "translation": "香蕉"
-  },
-  {
-    "word": "Broccoli",
-    "image": "images/broccoli.png",
-    "example": "Broccoli is a very healthy vegetable.",
-    "translation": "西兰花"
-  },
-  {
-    "word": "Burger",
-    "image": "images/burger.png",
-    "example": "He ordered a big burger with fries.",
-    "translation": "汉堡"
-  },
-  {
-    "word": "Carrot",
-    "image": "images/carrot.png",
-    "example": "Rabbits love to eat carrots.",
-    "translation": "胡萝卜"
-  },
-  {
-    "word": "Cat",
-    "image": "images/cat.png",
-    "example": "The cat is sleeping on the sofa.",
-    "translation": "猫"
-  },
-  {
-    "word": "Cherry",
-    "image": "images/cherry.png",
-    "example": "She put a cherry on top of the cake.",
-    "translation": "樱桃"
-  },
-  {
-    "word": "Chili",
-    "image": "images/chili.png",
-    "example": "This chili is very spicy!",
-    "translation": "辣椒"
-  },
-  {
-    "word": "Dog",
-    "image": "images/dog.png",
-    "example": "The dog is barking at the stranger.",
-    "translation": "狗"
-  },
-  {
-    "word": "Eggplant",
-    "image": "images/eggplant.png",
-    "example": "She made a dish with eggplant and cheese.",
-    "translation": "茄子"
-  },
-  {
-    "word": "Flamingo",
-    "image": "images/flamingo.png",
-    "example": "The flamingo is a large pink bird found in warm regions.",
-    "translation": "火烈鸟"
-  },
-  {
-    "word": "Fox",
-    "image": "images/fox.png",
-    "example": "The clever fox ran into the forest.",
-    "translation": "狐狸"
-  },
-  {
-    "word": "Onion",
-    "image": "images/onion.png",
-    "example": "Chopping onions makes my eyes water.",
-    "translation": "洋葱"
-  },
-  {
-    "word": "Parrot",
-    "image": "images/parrot.png",
-    "example": "The parrot can repeat human words.",
-    "translation": "鹦鹉"
-  },
-  {
-    "word": "Pineapple",
-    "image": "images/pineapple.png",
-    "example": "Pineapples are sweet and juicy.",
-    "translation": "菠萝"
-  },
-  {
-    "word": "Pizza",
-    "image": "images/pizza.png",
-    "example": "We had pizza for dinner last night.",
-    "translation": "披萨"
-  },
-  {
-    "word": "Potato",
-    "image": "images/potato.png",
-    "example": "Potatoes can be boiled, baked, or fried.",
-    "translation": "土豆"
-  },
-  {
-    "word": "Salad",
-    "image": "images/salad.png",
-    "example": "She made a fresh green salad.",
-    "translation": "沙拉"
-  },
-  {
-    "word": "Sandwich",
-    "image": "images/sandwich.png",
-    "example": "He packed a sandwich for lunch.",
-    "translation": "三明治"
-  },
-  {
-    "word": "Strawberry",
-    "image": "images/strawberry.png",
-    "example": "Strawberries are my favorite fruit.",
-    "translation": "草莓"
-  }
+    {
+        "word": "Apple",
+        "image": "images/apple.png",
+        "example": "I always eat an apple after lunch.",
+        "translation": "苹果"
+    },
+    {
+        "word": "Avocado",
+        "image": "images/avocado.png",
+        "example": "Avocados are rich in healthy fats.",
+        "translation": "牛油果 / 鳄梨"
+    },
+    {
+        "word": "Banana",
+        "image": "images/banana.png",
+        "example": "Monkeys love eating bananas.",
+        "translation": "香蕉"
+    },
+    {
+        "word": "Black raspberry",
+        "image": "images/black raspberry.png",
+        "example": "She made jam from black raspberries.",
+        "translation": "黑莓"
+    },
+    {
+        "word": "Blueberry",
+        "image": "images/blueberry.png",
+        "example": "Blueberries are good in pancakes.",
+        "translation": "蓝莓"
+    },
+    {
+        "word": "Broccoli",
+        "image": "images/broccoli.png",
+        "example": "Broccoli is very nutritious.",
+        "translation": "西兰花"
+    },
+    {
+        "word": "Burger",
+        "image": "images/burger.png",
+        "example": "He ordered a beef burger with fries.",
+        "translation": "汉堡"
+    },
+    {
+        "word": "Carrot",
+        "image": "images/carrot.png",
+        "example": "Rabbits often eat carrots.",
+        "translation": "胡萝卜"
+    },
+    {
+        "word": "Cat",
+        "image": "images/cat.png",
+        "example": "The cat is sleeping on the couch.",
+        "translation": "猫"
+    },
+    {
+        "word": "Cherry",
+        "image": "images/cherry.png",
+        "example": "She put a cherry on top of the cake.",
+        "translation": "樱桃"
+    },
+    {
+        "word": "Chili",
+        "image": "images/chili.png",
+        "example": "This chili is very spicy!",
+        "translation": "辣椒"
+    },
+    {
+        "word": "Coconut",
+        "image": "images/coconut.png",
+        "example": "She drank coconut water by the beach.",
+        "translation": "椰子"
+    },
+    {
+        "word": "Cranberry",
+        "image": "images/cranberry.png",
+        "example": "Cranberry sauce goes well with turkey.",
+        "translation": "蔓越莓"
+    },
+    {
+        "word": "Dog",
+        "image": "images/dog.png",
+        "example": "The dog barked loudly at the stranger.",
+        "translation": "狗"
+    },
+    {
+        "word": "Eggplant",
+        "image": "images/eggplant.png",
+        "example": "She grilled eggplant for dinner.",
+        "translation": "茄子"
+    },
+    {
+        "word": "Flamingo",
+        "image": "images/flamingo.png",
+        "example": "A flamingo stands on one leg in water.",
+        "translation": "火烈鸟"
+    },
+    {
+        "word": "Fox",
+        "image": "images/fox.png",
+        "example": "The fox sneaked through the forest.",
+        "translation": "狐狸"
+    },
+    {
+        "word": "Grape",
+        "image": "images/grape.png",
+        "example": "She harvested grapes from the vine.",
+        "translation": "葡萄"
+    },
+    {
+        "word": "Kiwi",
+        "image": "images/kiwi.png",
+        "example": "Kiwi fruit is rich in vitamin C.",
+        "translation": "猕猴桃"
+    },
+    {
+        "word": "Lemon",
+        "image": "images/lemon.png",
+        "example": "He squeezed lemon juice into water.",
+        "translation": "柠檬"
+    },
+    {
+        "word": "Mango",
+        "image": "images/mango.png",
+        "example": "Mangoes are sweet and juicy.",
+        "translation": "芒果"
+    },
+    {
+        "word": "Melon",
+        "image": "images/melon.png",
+        "example": "They served melon slices at the picnic.",
+        "translation": "瓜 / 甜瓜"
+    },
+    {
+        "word": "Onion",
+        "image": "images/onion.png",
+        "example": "Chopping onions makes me tear up.",
+        "translation": "洋葱"
+    },
+    {
+        "word": "Orange",
+        "image": "images/orange.png",
+        "example": "She peeled an orange for breakfast.",
+        "translation": "橙子 / 橘子"
+    },
+    {
+        "word": "Papaya",
+        "image": "images/papaya.png",
+        "example": "Papaya helps with digestion.",
+        "translation": "木瓜"
+    },
+    {
+        "word": "Parrot",
+        "image": "images/parrot.png",
+        "example": "The parrot can mimic human speech.",
+        "translation": "鹦鹉"
+    },
+    {
+        "word": "Peach",
+        "image": "images/peach.png",
+        "example": "She eats a peach every day in summer.",
+        "translation": "桃子"
+    },
+    {
+        "word": "Pear",
+        "image": "images/pear.png",
+        "example": "He cut a pear into slices.",
+        "translation": "梨"
+    },
+    {
+        "word": "Pineapple",
+        "image": "images/pineapple.png",
+        "example": "Fresh pineapple tastes sweet and tangy.",
+        "translation": "菠萝"
+    },
+    {
+        "word": "Pizza",
+        "image": "images/pizza.png",
+        "example": "We ordered pizza for dinner last night.",
+        "translation": "披萨"
+    },
+    {
+        "word": "Pomegranate",
+        "image": "images/pomegranate.png",
+        "example": "She sprinkled pomegranate seeds on salad.",
+        "translation": "石榴"
+    },
+    {
+        "word": "Potato",
+        "image": "images/potato.png",
+        "example": "He baked a potato in the oven.",
+        "translation": "土豆"
+    },
+    {
+        "word": "Raspberry",
+        "image": "images/raspberry.png",
+        "example": "She added raspberries to her smoothie.",
+        "translation": "覆盆子 / 树莓"
+    },
+    {
+        "word": "Salad",
+        "image": "images/salad.png",
+        "example": "She tossed a fresh salad for lunch.",
+        "translation": "沙拉"
+    },
+    {
+        "word": "Sandwich",
+        "image": "images/sandwich.png",
+        "example": "He packed a sandwich for the school trip.",
+        "translation": "三明治"
+    },
+    {
+        "word": "Strawberry",
+        "image": "images/strawberry.png",
+        "example": "Strawberries are my favorite fruit.",
+        "translation": "草莓"
+    },
+    {
+        "word": "Watermelon",
+        "image": "images/watermelon.png",
+        "example": "They ate watermelon at the picnic.",
+        "translation": "西瓜"
+    },
+    {
+        "word": "Grapefruit",
+        "image": "images/grapefruit.png",
+        "example": "Grapefruit is a citrus fruit known for its slightly bitter taste.",
+        "translation": "葡萄柚"
+    },
+    {
+        "word": "Pomelo",
+        "image": "images/pomelo.png",
+        "example": "Pomelo is the largest citrus fruit and is popular in Southeast Asia.",
+        "translation": "柚子"
+    },
+    {
+        "word": "Lime",
+        "image": "images/lime.png",
+        "example": "Lime is sour and green.",
+        "translation": "青柠"
+    },
+    {
+        "word": "Asparagus",
+        "image": "images/asparagus.png",
+        "example": "I eat asparagus with my dinner.",
+        "translation": "芦笋"
+    }
 ]
