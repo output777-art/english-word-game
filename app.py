@@ -8,6 +8,10 @@ import time
 from datetime import date
 import os
 from typing import List, Dict
+import datetime
+import calendar
+import plotly.graph_objects as go
+
 
 # ---------------- Load word list ----------------
 with open("words.json", "r", encoding="utf-8") as f:
@@ -52,6 +56,71 @@ def init_state():
             st.session_state[key] = val
 
 
+# ---------------- Calendar Functions ----------------
+def show_calendar_visual():
+    today = datetime.date.today()
+    year, month = today.year, today.month
+    _, num_days = calendar.monthrange(year, month)
+
+    dates = [datetime.date(year, month, day) for day in range(1, num_days + 1)]
+    weekdays = [d.weekday() for d in dates]  # 0=Mon, 6=Sun
+    week_rows = [d.isocalendar().week for d in dates]
+
+    signed_in = [d.isoformat() in st.session_state.checkin_dates for d in dates]
+    colors = ["lightgreen" if s else "lightgray" for s in signed_in]
+
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(
+            x=weekdays,
+            y=week_rows,
+            mode="markers+text",
+            marker=dict(size=40, color=colors),
+            text=[str(d.day) for d in dates],
+            textposition="middle center",
+            hovertext=[f"{d} ✅" if s else f"{d}" for d, s in zip(dates, signed_in)],
+            hoverinfo="text",
+        )
+    )
+
+    fig.update_layout(
+        xaxis=dict(
+            tickmode="array",
+            tickvals=list(range(7)),
+            ticktext=["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            showgrid=False,
+        ),
+        yaxis=dict(showgrid=False, visible=False),
+        height=300,
+        margin=dict(t=10, b=10, l=10, r=10),
+        showlegend=False,
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+
+def checkin_calendar():
+    st.title("📅 Daily Check-In")
+
+    today = datetime.date.today().isoformat()
+
+    if today in st.session_state.checkin_dates:
+        st.success("✅ You've already checked in today!")
+    else:
+        if st.button("📍 Check In Today"):
+            st.session_state.checkin_dates.add(today)
+            st.success("🎉 Check-in successful!")
+
+    st.markdown("### 🗓️ This Month's Check-In Calendar")
+    show_calendar_visual()
+
+    st.markdown("---")
+    if st.button("🔙 Back to Today's Learning"):
+        st.session_state.mode = "learn"
+        st.rerun()
+
+
+# ---------------- Initialization ----------------
 init_state()
 
 if st.session_state.daily_date != str(date.today()):
@@ -60,11 +129,23 @@ if st.session_state.daily_date != str(date.today()):
     st.session_state.daily_goal_celebrated = False
     st.session_state.daily_goal_completed = False
 
+if "checkin_dates" not in st.session_state:
+    st.session_state.checkin_dates = set()
+
+if st.button("📅 Go to Check-In"):
+    st.session_state.mode = "checkin"
+    st.rerun()
+
+elif st.session_state.mode == "checkin":
+    checkin_calendar()
+
+
 # ---------------- Background Music ----------------
 bg_music_on = st.sidebar.checkbox("Background Music🎵", value=True)
 
 if bg_music_on:
-    st.audio("sounds/bg_music.mp3", format="audio/mp3", start_time=0)
+    with st.sidebar:
+        st.audio("sounds/bg_music.mp3", format="audio/mp3", start_time=0)
 
 
 # ---------------- TTS Playback ----------------
@@ -104,7 +185,6 @@ if st.session_state.mode in ["learn", "quiz"]:
         and not st.session_state.daily_goal_celebrated
     ):
         st.success("🎉 Daily goal completed! Great job!")
-        st.balloons()
         st.session_state.daily_goal_celebrated = True
 
 
@@ -124,7 +204,6 @@ def check_achievements():
         st.session_state.achievements.append("Word Collector")
         achieved.append("Word Collector")
     if achieved:
-        st.balloons()
         for a in achieved:
             st.success(f"Achievement unlocked: {a}")
 
@@ -194,15 +273,29 @@ def review_mode():
             ):
                 play_tts(item["word"])
 
-    if st.button("Back to Learn"):
-        st.session_state.mode = "learn"
-        st.rerun()
+    if st.session_state.get("review_return_to") == "input_quiz":
+        if st.button("🔙 Back to Quiz"):
+            st.session_state.mode = "input_quiz"
+            del st.session_state["review_return_to"]
+            st.rerun()
+    else:
+        if st.button("📚 Back to Learn"):
+            st.session_state.mode = "learn"
+            st.rerun()
 
-    if st.button("Back to Quiz"):
-        st.session_state.mode = "input_quiz"
-        st.session_state.input_quiz_state = "idle"
-        st.session_state.reset_input_quiz = True
-        st.rerun()
+    if st.session_state.get("review_return_to") == "input_quiz_summary":
+        if st.button("🔁 Retry Quiz with Missed Words"):
+            wrong_words = st.session_state.get("review_list", [])
+            learned_items = [{"word": w} for w in wrong_words if isinstance(w, str)]
+
+            if learned_items:
+                st.session_state.today_learned_words = learned_items
+                if "input_quiz_initialized" in st.session_state:
+                    del st.session_state.input_quiz_initialized
+                st.session_state.mode = "input_quiz"
+                st.rerun()
+            else:
+                st.warning("All correct! Nothing to review.")
 
     if st.session_state.get("review_return_to") == "input_quiz_summary":
         if st.button("🏁 Back to Quiz Summary"):
@@ -448,18 +541,6 @@ elif st.session_state.mode == "input_quiz":
     quiz_list = st.session_state.input_quiz_list
     idx = st.session_state.input_quiz_idx
 
-    # ------------------- Debug Panel -------------------
-    with st.expander("🛠 Debug Info"):
-        st.write(f"Index: {idx}")
-        st.write(f"State: {st.session_state.input_quiz_state}")
-        st.write(f"Answer: {st.session_state.input_quiz_answers.get(idx, '')}")
-        st.write(f"Score: {st.session_state.input_quiz_score}")
-        st.write(f"Results: {st.session_state.input_quiz_results}")
-        st.write(f"Quiz List: {quiz_list}")
-        st.write(
-            "Today Learned Words:", st.session_state.get("today_learned_words", [])
-        )
-
     # ------------------- All questions done -------------------
     if idx >= len(quiz_list):
         st.session_state.mode = "input_quiz_summary"
@@ -531,6 +612,7 @@ if (
     with col2:
         if st.button("🔁 Review This Word"):
             st.session_state.review_word = quiz_list[idx]
+            st.session_state.review_return_to = "input_quiz"
             st.session_state.mode = "review"
             st.session_state.input_quiz_state = "idle"
             st.session_state.reset_input_quiz = True
@@ -559,21 +641,28 @@ if (
 elif st.session_state.mode == "input_quiz_summary":
     st.title("📊 Daily Input Quiz Summary")
 
-    score = st.session_state.get("input_quiz_score", 0)
-    total = len(st.session_state.get("input_quiz_list", []))
+    # Calculate quiz score and accuracy based on unique words, ignoring repeated attempts
+    raw_results = st.session_state.get("input_quiz_results", [])
+    unique_results_by_word = {}
+    for word, ok in raw_results:
+        if word not in unique_results_by_word:
+            unique_results_by_word[word] = ok
+
+    score = sum(1 for ok in unique_results_by_word.values() if ok)
+    total = len(unique_results_by_word)
     correct_rate = round((score / total) * 100, 1) if total else 0
 
     st.markdown(f"### ✅ Correct: {score}/{total} ({correct_rate}%)")
 
     # Show missed words
-    wrong_words = [w for w, ok in st.session_state.input_quiz_results if not ok]
+    wrong_words = [w for w, ok in unique_results_by_word.items() if not ok]
+
     if wrong_words:
         st.markdown("### ❌ Words to Review:")
         for w in wrong_words:
             st.markdown(f"- **{w.capitalize()}**")
 
     st.progress(score / total if total else 0)
-    st.balloons()
 
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -595,5 +684,6 @@ elif st.session_state.mode == "input_quiz_summary":
             st.rerun()
     with col3:
         if st.button("🏁 End Session"):
+            st.balloons()
             st.markdown("See you next time! 👋")
             st.stop()

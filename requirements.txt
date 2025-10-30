@@ -1,4 +1,5 @@
 streamlit
 gTTS
 speechrecognition
+plotly>=6.3.1
 
